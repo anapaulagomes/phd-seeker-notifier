@@ -33,3 +33,4 @@ jobs:
     - name: Notify
       run: |
         echo "Work in progress!"
+        psn --days 7 --country germany

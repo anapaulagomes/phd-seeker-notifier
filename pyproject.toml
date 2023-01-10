@@ -6,6 +6,9 @@ authors = ["Ana Paula Gomes <apgomes88@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
+[tool.poetry.scripts]
+psn = "psn.cli:main"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 phdseeker = "^0.4.5"
