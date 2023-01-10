@@ -1,7 +1,25 @@
 import argparse
 from pathlib import Path
 
+from rich.console import Console
+from rich.table import Table
+
 from psn.filters import from_csv_to_dict, filter_by_location, filter_by_last_seen
+
+
+def print_found_positions(country, last_seen_in_days, positions):
+    table = Table(title=f"PhD positions in {country} (last {last_seen_in_days} days)")
+
+    table.add_column("Country", justify="center", style="cyan", no_wrap=True)
+    table.add_column("Last Seen", justify="center", style="cyan", no_wrap=True)
+    table.add_column("Title", justify="left", style="magenta")
+    table.add_column("Link", justify="left", style="green")
+
+    for position in positions:
+        table.add_row(position["country"], position["last_seen"], position["title"], position["link"])
+
+    console = Console()
+    console.print(table)
 
 
 def main():
@@ -17,8 +35,7 @@ def main():
     data = from_csv_to_dict(positions_filepath)
     filtered_data = filter_by_location(data, args.country)
     filtered_data = filter_by_last_seen(filtered_data, args.days)
-    for position in filtered_data:
-        print(position["country"], position["title"], position["last_seen"], position["link"])
+    print_found_positions(args.country, args.days, filtered_data)
 
 
 if __name__ == "__main__":

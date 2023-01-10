@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "psn"
-version = "0.1.0"
+version = "0.1.1"
 description = "Notify about PhD positions found using PhD Seeker."
 authors = ["Ana Paula Gomes <apgomes88@gmail.com>"]
 license = "MIT"
@@ -15,6 +15,7 @@ phdseeker = "^0.4.5"
 bs4 = "^0.0.1"
 urllib3 = "^1.26.13"
 freezegun = "^1.2.2"
+rich = "^13.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
