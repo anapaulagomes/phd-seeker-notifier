@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install phdseeker
+        pip install phdseeker bs4
     - name: Find PhD positions...
       run: |
         # verbose mode, up to 10 pages, and with csv output
