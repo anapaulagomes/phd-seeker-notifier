@@ -20,6 +20,7 @@ def send_email(positions, country):
         for index, position in enumerate(positions, start=1)
     ]
     positions_section = "".join(positions_html)
+    country = country.title()
     message = sendgrid.Mail(
         from_email=(os.environ.get("FROM_EMAIL"), "PhD Seeker Notifier"),
         to_emails=(os.environ.get("TO_EMAILS"), "Ana Paula Gomes"),
