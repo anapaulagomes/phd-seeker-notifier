@@ -5,6 +5,7 @@ from rich.console import Console
 from rich.table import Table
 
 from psn.filters import from_csv_to_dict, filter_by_location, filter_by_last_seen
+from psn.notify import send_email
 
 
 def print_found_positions(country, last_seen_in_days, positions):
@@ -41,6 +42,7 @@ def main():
     filtered_data = filter_by_location(data, args.country)
     filtered_data = filter_by_last_seen(filtered_data, args.days)
     print_found_positions(args.country, args.days, filtered_data)
+    send_email(filtered_data, args.country)
 
 
 if __name__ == "__main__":
