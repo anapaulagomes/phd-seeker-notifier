@@ -35,6 +35,10 @@ jobs:
         # more about it: https://github.com/Aghababaei/PhD-Seeker
         phdseeker -k 'machine learning, data science, natural language processing, berlin' -v -o csv
     - name: Notify
+      env:
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+        TO_EMAILS: ${{ secrets.TO_EMAILS }}
       run: |
         echo "Work in progress!"
         psn --days 7 --country germany
