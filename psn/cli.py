@@ -16,7 +16,12 @@ def print_found_positions(country, last_seen_in_days, positions):
     table.add_column("Link", justify="left", style="green")
 
     for position in positions:
-        table.add_row(position["country"], position["last_seen"], position["title"], position["link"])
+        table.add_row(
+            position["country"],
+            position["last_seen"],
+            position["title"],
+            f"[link={position['link']}]here[/]"
+        )
 
     console = Console()
     console.print(table)
