@@ -4,7 +4,7 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from psn.filters import from_csv_to_dict, filter_by_location, filter_by_last_seen
+from psn.filters import filter_by_last_seen, filter_by_location, from_csv_to_dict
 from psn.notify import send_email
 
 
@@ -21,7 +21,7 @@ def print_found_positions(country, last_seen_in_days, positions):
             position["country"],
             position["last_seen"],
             position["title"],
-            f"[link={position['link']}]here[/]"
+            f"[link={position['link']}]here[/]",
         )
 
     console = Console()
@@ -30,12 +30,16 @@ def print_found_positions(country, last_seen_in_days, positions):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--days", "-d", default=7, type=int, help="Filter by last seen in days")
-    parser.add_argument("--country", "-c", default="germany", type=str, help="Filter by country")
+    parser.add_argument(
+        "--days", "-d", default=7, type=int, help="Filter by last seen in days"
+    )
+    parser.add_argument(
+        "--country", "-c", default="germany", type=str, help="Filter by country"
+    )
     args = parser.parse_args()
 
     try:
-        positions_filepath = list(Path('.').glob('*.csv'))[0]
+        positions_filepath = list(Path(".").glob("*.csv"))[0]
     except IndexError:
         raise Exception("File from PhD Seeker was not found.")
     data = from_csv_to_dict(positions_filepath)

@@ -1,18 +1,18 @@
 import csv
-from datetime import date, timedelta, datetime
+from datetime import date, datetime, timedelta
 from typing import List
 
 
 def from_csv_to_dict(positions_filepath) -> List[dict]:
     data = []
-    with open(positions_filepath, newline='') as csvfile:
+    with open(positions_filepath, newline="") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             position = {
                 "country": row["Country"],
                 "last_seen": row["Date"],
                 "title": row["Title"],
-                "link": row["Link"]
+                "link": row["Link"],
             }
             data.append(position)
     return data
@@ -47,7 +47,7 @@ def from_last_seen_to_date(last_seen: str) -> date:
         "hour": {"attribute": "seconds", "factor": 360},
         "day": {"attribute": "days", "factor": 1},
         "month": {"attribute": "days", "factor": 30},
-        "year": {"attribute": "days", "factor": 365}
+        "year": {"attribute": "days", "factor": 365},
     }
     original_last_seen = last_seen
     last_seen = last_seen.lower().replace("about", "")
@@ -60,9 +60,7 @@ def from_last_seen_to_date(last_seen: str) -> date:
     number, possible_metric = int(last_seen[0]), last_seen[1]
     for metric in metrics:
         if possible_metric.startswith(metric):
-            kwargs = {
-                metrics[metric]["attribute"]: number * metrics[metric]["factor"]
-            }
+            kwargs = {metrics[metric]["attribute"]: number * metrics[metric]["factor"]}
             return (datetime.today() - timedelta(**kwargs)).date()
 
     print(f"Failed to parse last seen using metrics: {original_last_seen}")

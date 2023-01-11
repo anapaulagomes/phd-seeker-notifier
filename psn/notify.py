@@ -2,12 +2,11 @@ import os
 from datetime import datetime
 
 import sendgrid
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
-sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+sg = sendgrid.SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
 
 
 def send_email(positions, country):
@@ -28,7 +27,7 @@ def send_email(positions, country):
         html_content=f"""
             <h2>Open PhD positions</h2>
             {positions_section}
-        """
+        """,
     )
     try:
         sg.send(message)
