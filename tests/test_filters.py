@@ -3,12 +3,11 @@ from datetime import date
 import pytest
 from freezegun import freeze_time
 
-from psn.sources.phd_seeker.filters import (
+from psn.filters import (
     filter_by_last_seen,
     filter_by_location,
-    from_last_seen_to_date,
 )
-from psn.sources.phd_seeker.adapters import from_csv_to_dict
+from psn.sources.phd_seeker.adapters import from_csv_to_dict, from_last_seen_to_date
 
 positions_filepath = (
     "tests/fixtures/PhD_Positions_2023-01-10"
@@ -18,7 +17,7 @@ positions_filepath = (
 
 def test_from_csv_to_dict():
     data = from_csv_to_dict(positions_filepath)
-    expected_keys = {"country", "last_seen", "title", "link"}
+    expected_keys = {"country", "last_seen", "title", "link", "source"}
     assert isinstance(data, list)
     assert isinstance(data[0], dict)
     assert set(data[0].keys()) == expected_keys
@@ -59,4 +58,4 @@ def test_filter_by_last_seen():
     filtered_data = filter_by_last_seen(data, 1)  # last day
     assert data != filtered_data
     for position in filtered_data:
-        assert "hour" in position["last_seen"] or "minute" in position["last_seen"]
+        assert position["last_seen"] is None or isinstance(position["last_seen"], date)
