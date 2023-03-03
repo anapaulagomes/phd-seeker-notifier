@@ -14,16 +14,20 @@ def fix_link(link):
 
 
 def fetch_positions():
-    entries = feedparser.parse("https://api.daad.de/api/feeds/rss/de/phd.xml")["entries"]
+    entries = feedparser.parse("https://api.daad.de/api/feeds/rss/de/phd.xml")[
+        "entries"
+    ]
     positions = []
 
     for entry in entries:
-        positions.append({
-            "country": "Germany",
-            "last_seen": from_struct_time_to_date(entry["published_parsed"]),
-            "title": entry["title"],
-            "link": fix_link(entry["link"]),
-            "summary": entry["summary"],
-            "source": "DAAD",
-        })
+        positions.append(
+            {
+                "country": "Germany",
+                "last_seen": from_struct_time_to_date(entry["published_parsed"]),
+                "title": entry["title"],
+                "link": fix_link(entry["link"]),
+                "summary": entry["summary"],
+                "source": "DAAD",
+            }
+        )
     return positions

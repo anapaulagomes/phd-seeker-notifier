@@ -28,13 +28,15 @@ def filter_by_topics(positions, topics=None):
             "natural language processing",
             "nlp",
             "postdam",
-            "berlin"
+            "berlin",
         ]
     filtered_data = []
     for position in positions:
         for topic in topics:
             in_title = topic in position["title"]
-            in_summary = position.get("summary") and topic in position["summary"].lower()
+            in_summary = (
+                position.get("summary") and topic in position["summary"].lower()
+            )
             if in_title or in_summary:
                 filtered_data.append(position)
     return filtered_data

@@ -25,7 +25,7 @@ def print_found_positions(country, last_seen_in_days, positions):
             str(position["last_seen"]),
             position["title"],
             position["source"],
-            position['link'],
+            position["link"],
             # f"[link={position['link']}]here[/]",
         )
 
@@ -42,12 +42,13 @@ def main():
         "--country", "-c", default="germany", type=str, help="Filter by country"
     )
     parser.add_argument(
-        "--sources", "-s", type=str, help="Sources splitted by comma",
-        default="phd_seeker,daad"
+        "--sources",
+        "-s",
+        type=str,
+        help="Sources splitted by comma",
+        default="phd_seeker,daad",
     )
-    parser.add_argument(
-        "--send-email", "-e", action="store_true", help="Send e-mail"
-    )
+    parser.add_argument("--send-email", "-e", action="store_true", help="Send e-mail")
     args = parser.parse_args()
     positions = []
 
