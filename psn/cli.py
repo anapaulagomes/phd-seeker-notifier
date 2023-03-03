@@ -4,8 +4,8 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from psn.filters import filter_by_last_seen, filter_by_location, from_csv_to_dict
-from psn.notify import send_email
+from psn.sources.phd_seeker.filters import filter_by_last_seen, filter_by_location
+from psn.sources.phd_seeker.adapters import from_csv_to_dict
 
 
 def print_found_positions(country, last_seen_in_days, positions):

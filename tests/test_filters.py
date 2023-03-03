@@ -3,12 +3,12 @@ from datetime import date
 import pytest
 from freezegun import freeze_time
 
-from psn.filters import (
+from psn.sources.phd_seeker.filters import (
     filter_by_last_seen,
     filter_by_location,
-    from_csv_to_dict,
     from_last_seen_to_date,
 )
+from psn.sources.phd_seeker.adapters import from_csv_to_dict
 
 positions_filepath = (
     "tests/fixtures/PhD_Positions_2023-01-10"
