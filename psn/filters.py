@@ -20,23 +20,19 @@ def filter_by_last_seen(positions: List[dict], days: int) -> List[dict]:
     return filtered_data
 
 
-def filter_by_topics(positions, topics=None):
-    if not topics:
-        topics = [
-            "machine learning",
-            "data science",
-            "natural language processing",
-            "nlp",
-            "postdam",
-            "berlin",
-        ]
+def filter_by_topics(positions, topics):
     filtered_data = []
+    topics = topics.split(",")
     for position in positions:
+        print("---------")
         for topic in topics:
-            in_title = topic in position["title"]
+            in_title = topic.lower() in position["title"].lower()
             in_summary = (
-                position.get("summary") and topic in position["summary"].lower()
+                position.get("summary") and
+                topic.lower() in position["summary"].lower()
             )
+            print(topic, in_title, in_summary)
             if in_title or in_summary:
                 filtered_data.append(position)
+                break
     return filtered_data

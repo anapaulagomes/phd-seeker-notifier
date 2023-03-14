@@ -1,4 +1,5 @@
 import argparse
+import os
 from pathlib import Path
 
 from rich.console import Console
@@ -25,8 +26,7 @@ def print_found_positions(country, last_seen_in_days, positions):
             str(position["last_seen"]),
             position["title"],
             position["source"],
-            position["link"],
-            # f"[link={position['link']}]here[/]",
+            f"[link={position['link']}]here[/]",
         )
 
     console = Console()
@@ -48,6 +48,13 @@ def main():
         help="Sources splitted by comma",
         default="phd_seeker,daad",
     )
+    parser.add_argument(
+        "--topics",
+        "-t",
+        type=str,
+        help="Topics splitted by comma",
+        default="machine learning, data science, natural language processing, nlp",
+    )
     parser.add_argument("--send-email", "-e", action="store_true", help="Send e-mail")
     args = parser.parse_args()
     positions = []
@@ -59,7 +66,8 @@ def main():
             raise Exception("File from PhD Seeker was not found.")
         positions.extend(from_csv_to_dict(positions_filepath))
     if "daad" in args.sources:
-        positions.extend(filter_by_topics(fetch_positions()))
+        topics = os.getenv("TOPICS") or args.topics
+        positions.extend(filter_by_topics(fetch_positions(), topics))
 
     filtered_data = filter_by_location(positions, args.country)
     filtered_data = filter_by_last_seen(filtered_data, args.days)
