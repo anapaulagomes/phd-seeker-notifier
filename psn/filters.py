@@ -26,12 +26,12 @@ def filter_by_topics(positions, topics):
     for position in positions:
         print("---------")
         for topic in topics:
-            in_title = topic.lower() in position["title"].lower()
+            topic = topic.lower().strip()
+            in_title = topic in position["title"].lower()
             in_summary = (
                 position.get("summary") and
-                topic.lower() in position["summary"].lower()
+                topic in position["summary"].lower()
             )
-            print(topic, in_title, in_summary)
             if in_title or in_summary:
                 filtered_data.append(position)
                 break
