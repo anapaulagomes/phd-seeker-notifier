@@ -18,6 +18,7 @@ freezegun = "^1.2.2"
 rich = "^13.0.1"
 sendgrid = "^6.9.7"
 python-dotenv = "^0.21.0"
+feedparser = "^6.0.10"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
