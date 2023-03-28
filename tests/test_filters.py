@@ -4,10 +4,10 @@ import pytest
 from freezegun import freeze_time
 
 from psn.filters import (
-    filter_by_last_seen,
+    filter_by_last_updated,
     filter_by_location,
     from_csv_to_dict,
-    from_last_seen_to_date,
+    from_last_updated_to_date,
 )
 
 positions_filepath = (
@@ -18,7 +18,7 @@ positions_filepath = (
 
 def test_from_csv_to_dict():
     data = from_csv_to_dict(positions_filepath)
-    expected_keys = {"country", "last_seen", "title", "link"}
+    expected_keys = {"country", "last_updated", "title", "link"}
     assert isinstance(data, list)
     assert isinstance(data[0], dict)
     assert set(data[0].keys()) == expected_keys
@@ -34,7 +34,7 @@ def test_filter_by_location():
 
 @freeze_time("2023-01-01 14:21:34")
 @pytest.mark.parametrize(
-    "last_seen,expected_date",
+    "last_updated,expected_date",
     [
         ("about 10 hours ago", date(2023, 1, 1)),
         ("2 months ago", date(2022, 11, 2)),
@@ -49,14 +49,14 @@ def test_filter_by_location():
         ("about 10 seconds ago", date(2023, 1, 1)),
     ],
 )
-def test_from_last_seen_to_date(last_seen, expected_date):
-    assert from_last_seen_to_date(last_seen) == expected_date
+def test_from_last_updated_to_date(last_updated, expected_date):
+    assert from_last_updated_to_date(last_updated) == expected_date
 
 
 @freeze_time("2023-01-10 20:21:34")
-def test_filter_by_last_seen():
+def test_filter_by_last_updated():
     data = from_csv_to_dict(positions_filepath)
-    filtered_data = filter_by_last_seen(data, 1)  # last day
+    filtered_data = filter_by_last_updated(data, 1)  # last day
     assert data != filtered_data
     for position in filtered_data:
-        assert "hour" in position["last_seen"] or "minute" in position["last_seen"]
+        assert "hour" in position["last_updated"] or "minute" in position["last_updated"]

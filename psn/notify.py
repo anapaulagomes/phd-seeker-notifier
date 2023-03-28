@@ -15,7 +15,7 @@ def send_email(positions, country):
     positions_html = [
         f"<p>{index}) "
         f"<a href={position['link']}>{position['title']}</a> "
-        f"({position['last_seen']})"
+        f"({position['last_updated']})"
         f"</p>"
         for index, position in enumerate(positions, start=1)
     ]

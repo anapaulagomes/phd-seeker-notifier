@@ -4,12 +4,12 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from psn.filters import filter_by_last_seen, filter_by_location, from_csv_to_dict
+from psn.filters import filter_by_last_updated, filter_by_location, from_csv_to_dict
 from psn.notify import send_email
 
 
-def print_found_positions(country, last_seen_in_days, positions):
-    table = Table(title=f"PhD positions in {country} (last {last_seen_in_days} days)")
+def print_found_positions(country, last_updated_in_days, positions):
+    table = Table(title=f"PhD positions in {country} (last {last_updated_in_days} days)")
 
     table.add_column("Country", justify="center", style="cyan", no_wrap=True)
     table.add_column("Last Seen", justify="center", style="cyan", no_wrap=True)
@@ -19,7 +19,7 @@ def print_found_positions(country, last_seen_in_days, positions):
     for position in positions:
         table.add_row(
             position["country"],
-            position["last_seen"],
+            position["last_updated"],
             position["title"],
             f"[link={position['link']}]here[/]",
         )
@@ -44,7 +44,7 @@ def main():
         raise Exception("File from PhD Seeker was not found.")
     data = from_csv_to_dict(positions_filepath)
     filtered_data = filter_by_location(data, args.country)
-    filtered_data = filter_by_last_seen(filtered_data, args.days)
+    filtered_data = filter_by_last_updated(filtered_data, args.days)
     print_found_positions(args.country, args.days, filtered_data)
     send_email(filtered_data, args.country)
 
