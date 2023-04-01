@@ -24,7 +24,6 @@ def filter_by_topics(positions, topics):
     filtered_data = []
     topics = topics.split(",")
     for position in positions:
-        print("---------")
         for topic in topics:
             topic = topic.lower().strip()
             in_title = topic in position["title"].lower()
