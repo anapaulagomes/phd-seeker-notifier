@@ -41,5 +41,4 @@ jobs:
         TO_EMAILS: ${{ secrets.TO_EMAILS }}
         TOPICS: ${{ vars.TOPICS }}
       run: |
-        echo "Work in progress!"
         psn --days 7 --country germany --send-email
