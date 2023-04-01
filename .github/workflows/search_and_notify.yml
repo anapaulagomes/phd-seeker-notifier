@@ -12,9 +12,9 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      TOPICS: ${{ secrets.TOPICS }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.8
@@ -33,7 +33,7 @@ jobs:
       run: |
         # verbose mode, up to 10 pages, and with csv output
         # more about it: https://github.com/Aghababaei/PhD-Seeker
-        phdseeker -k 'machine learning, data science, natural language processing, berlin' -v -o csv
+        phdseeker -k $TOPICS -v -o csv
     - name: Notify
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
@@ -41,4 +41,4 @@ jobs:
         TO_EMAILS: ${{ secrets.TO_EMAILS }}
       run: |
         echo "Work in progress!"
-        psn --days 7 --country germany
+        psn --days 7 --country germany --send-email
