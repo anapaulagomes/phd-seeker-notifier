@@ -33,7 +33,7 @@ jobs:
       run: |
         # verbose mode, up to 10 pages, and with csv output
         # more about it: https://github.com/Aghababaei/PhD-Seeker
-        phdseeker -k $TOPICS -v -o csv
+        phdseeker -k "${{ vars.TOPICS }}" -v -o csv
     - name: Notify
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
