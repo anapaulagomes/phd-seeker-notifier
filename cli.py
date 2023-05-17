@@ -4,8 +4,8 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 
-from psn.filters import filter_by_last_updated, filter_by_location, from_csv_to_dict
-from psn.notify import send_email
+from filters import filter_by_last_updated, filter_by_location, from_csv_to_dict
+from notify import send_email
 
 
 def print_found_positions(country, last_updated_in_days, positions):

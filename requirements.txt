@@ -1,0 +1,6 @@
+phdseeker
+bs4
+urllib3
+sendgrid
+python-dotenv
+rich
