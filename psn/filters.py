@@ -1,9 +1,8 @@
 import csv
-from datetime import date, datetime, timedelta
-from typing import List
+from datetime import datetime, timedelta
 
 
-def from_csv_to_dict(positions_filepath) -> List[dict]:
+def from_csv_to_dict(positions_filepath):
     data = []
     with open(positions_filepath, newline="") as csvfile:
         reader = csv.DictReader(csvfile)
@@ -18,7 +17,7 @@ def from_csv_to_dict(positions_filepath) -> List[dict]:
     return data
 
 
-def filter_by_location(positions: List[dict], country: str) -> List[dict]:
+def filter_by_location(positions, country):
     filtered_data = []
     for position in positions:
         if position["country"].lower() == country.lower():
@@ -26,7 +25,7 @@ def filter_by_location(positions: List[dict], country: str) -> List[dict]:
     return filtered_data
 
 
-def filter_by_last_updated(positions: List[dict], days: int) -> List[dict]:
+def filter_by_last_updated(positions, days):
     filtered_data = []
     for position in positions:
         raw_last_updated = position["last_updated"].lower()
@@ -40,7 +39,7 @@ def filter_by_last_updated(positions: List[dict], days: int) -> List[dict]:
     return filtered_data
 
 
-def from_last_updated_to_date(last_updated: str) -> date:
+def from_last_updated_to_date(last_updated):
     metrics = {
         "second": {"attribute": "seconds", "factor": 1},
         "minute": {"attribute": "seconds", "factor": 60},
